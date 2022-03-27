@@ -1,6 +1,6 @@
 from datetime import datetime
 from decimal import Decimal
-from pyspark.sql.types import DateType, DecimalType, IntegerType, StringType, TimestampType
+from pyspark.sql.types import DateType, DecimalType, IntegerType, StringType, TimestampType, StructType
 from pyspark.sql import SparkSession
 import IPython
 import json
@@ -110,13 +110,14 @@ def parse_json(line: str):
 
 def process_json(json_name):
     spark = SparkSession.builder.master('local').appName('app').getOrCreate()
-    spark.conf.set('fs.azure.account.key.gcblobcf2022.blob.core.windows.net',
-                   '')
     raw = spark.sparkContext.textFile(f'wasbs://testcontainer@gcblobcf2022.blob.core.windows.net/{json_name}')
     parsed = raw.map(lambda line: parse_csv(line))
     data = spark.createDataFrame(parsed)
     return data
 
 
-if __name__ == '__main__':
-    df = process_csv('nyse20200806.txt')
+schema = StructType().add("trade_dt", DateType()).add("rec_type", StringType()).add("symbol", StringType())\
+    .add("exchange", StringType()).add("event_tm", TimestampType()).add("event_seq_nb", IntegerType())\
+    .add("arrival_tm", TimestampType()).add("trade_pr", DecimalType()).add("trade_size", IntegerType())\
+    .add("bid_pr", DecimalType()).add("bid_size", IntegerType()).add("ask_pr", DecimalType())\
+    .add("ask_size", IntegerType()).add("partition", StringType()).add("line", StringType())
