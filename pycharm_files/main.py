@@ -2,7 +2,6 @@ from datetime import datetime
 from decimal import Decimal
 from pyspark.sql.types import DateType, DecimalType, IntegerType, StringType, TimestampType, StructType
 from pyspark.sql import SparkSession
-import IPython
 import json
 
 
