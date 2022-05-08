@@ -15,3 +15,10 @@
 2. It unions the quote and trade data together to find the last trade price before each quote. (Shown in noteobok)
 3. Finally it writes the output back to azure storage
 4. ![Screen Shot 2022-05-02 at 7 36 30 PM](https://user-images.githubusercontent.com/20688436/166396789-9dac895d-54ad-40ed-8081-55988b7f8bc7.png)
+
+## Pipeline Orchestration
+1. Created a scheduled databricks job with the previous notebooks as the tasks.
+2. Scheduled to run on weekdays at 3:30 pacific.
+3. Set to notify me via email on start, stop, and error.
+4. ![Screen Shot 2022-05-08 at 10 55 35 AM](https://user-images.githubusercontent.com/20688436/167313557-8597e731-a1d7-4b50-974d-ab741802e51f.png)
+
